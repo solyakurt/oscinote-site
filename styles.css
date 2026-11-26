@@ -5,13 +5,6 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: 'Instrument Serif';
-  src: url('/fonts/instrument-serif.woff2') format('woff2');
-  font-weight: 400;
-  font-display: swap;
-}
-
 :root {
   --bg: #0b0b0d;
   --surface: #131316;
@@ -20,12 +13,13 @@
   --text: #f3f3f5;
   --text-2: #a6a6ae;
   --muted: #8b8b94;
-  --accent: #d3263a;
-  --accent-text: #ff6b79;
+  --accent: #a92134;
+  --accent-text: #e67c89;
   --in-tune: #7fcb9d;
-  --radius: 14px;
-  --max: 1200px;
-  --display: 'Instrument Serif', Georgia, serif;
+  --radius: 8px;
+  --max: 1280px;
+  --display: 'Inter', system-ui, sans-serif;
+  --mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
   color-scheme: dark;
 }
 
@@ -83,7 +77,7 @@ img {
 }
 
 .wrap {
-  width: min(var(--max), 100% - 32px);
+  width: min(var(--max), 100% - 48px);
   margin-inline: auto;
 }
 
@@ -92,8 +86,7 @@ header.site {
   top: 0;
   z-index: 5;
   border-bottom: 1px solid var(--border);
-  background: rgb(11 11 13 / 92%);
-  backdrop-filter: blur(8px);
+  background: var(--bg);
 }
 
 header.site .wrap {
@@ -101,7 +94,7 @@ header.site .wrap {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 6px 24px;
+  gap: 8px 24px;
   padding-block: 12px;
 }
 
@@ -112,16 +105,23 @@ header.site .wrap {
   color: var(--text);
 }
 
-.brand svg {
-  height: 38px;
-  width: auto;
+.brand {
+  gap: 8px;
+  font-size: 20px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.brand img {
+  width: 32px;
+  height: 32px;
 }
 
 nav.main ul {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 2px clamp(5px, 2vw, 22px);
+  gap: 4px 24px;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -146,10 +146,10 @@ nav.main a[aria-current='page'] {
 
 nav.main a.nav-download {
   padding-inline: 12px;
-  border: 1px solid #6f2732;
+  border: 1px solid var(--border);
   border-radius: 8px;
   color: var(--text);
-  background: #271418;
+  background: var(--surface);
 }
 
 @media (max-width: 620px) {
@@ -179,7 +179,7 @@ nav.main a.nav-download {
   border-radius: 8px;
   background: var(--surface-2);
   color: var(--text);
-  font-weight: 600;
+  font-weight: 500;
   text-decoration: none;
 }
 
@@ -204,7 +204,7 @@ nav.main a.nav-download {
 }
 
 main {
-  padding-block: clamp(36px, 6vw, 72px) clamp(64px, 8vw, 104px);
+  padding-block: clamp(40px, 6vw, 80px) 96px;
 }
 
 main [id] {
@@ -214,7 +214,7 @@ main [id] {
 h1 {
   max-width: 23ch;
   margin: 0 0 16px;
-  font: 400 clamp(42px, 6vw, 68px) / 0.99 var(--display);
+  font: 500 clamp(36px, 4.5vw, 56px) / 1.1 var(--display);
   letter-spacing: -0.025em;
 }
 
@@ -222,17 +222,19 @@ h2 {
   margin: 56px 0 16px;
   font-size: clamp(24px, 3vw, 32px);
   line-height: 1.2;
+  font-weight: 500;
 }
 
 h3 {
   margin: 0 0 8px;
   font-size: 18px;
+  font-weight: 500;
 }
 
 .lead {
   max-width: 62ch;
   color: var(--text-2);
-  font-size: 19px;
+  font-size: 18px;
 }
 
 .muted {
@@ -250,20 +252,22 @@ h3 {
 .hero {
   display: grid;
   align-items: center;
-  gap: clamp(24px, 5vw, 68px);
+  gap: 40px;
 }
 
 .hero h1 {
-  max-width: 12ch;
-  font-size: clamp(54px, 6.4vw, 88px);
+  max-width: 14ch;
+  font-size: clamp(40px, 4.4vw, 64px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
 }
 
 .eyebrow {
   margin: 0 0 12px;
-  color: var(--accent-text);
+  color: var(--text-2);
   font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.045em;
+  font-weight: 400;
+  letter-spacing: 0;
 }
 
 .hero-offer {
@@ -294,7 +298,6 @@ h3 {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
-  box-shadow: 0 18px 44px rgb(0 0 0 / 32%);
 }
 
 .clip-video {
@@ -306,7 +309,7 @@ h3 {
 }
 
 .clip figcaption {
-  margin-top: 10px;
+  margin-top: 12px;
   color: var(--muted);
   font-size: 14px;
 }
@@ -363,7 +366,7 @@ h3 {
 }
 
 .card {
-  padding: 20px;
+  padding: 24px;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: var(--surface);
@@ -402,7 +405,7 @@ h3 {
   border: 1px solid var(--accent);
   border-radius: 50%;
   color: var(--accent-text);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .notice {
@@ -434,15 +437,14 @@ td {
 
 thead th {
   color: var(--text-2);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 tbody th[scope='rowgroup'] {
   padding-top: 18px;
   color: var(--muted);
-  font-size: 13px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0;
 }
 
 details {
@@ -452,7 +454,7 @@ details {
 
 summary {
   cursor: pointer;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 details p {
@@ -480,7 +482,7 @@ footer.site nav {
 }
 
 .footer-brand > a {
-  font: 400 36px/1 var(--display);
+  font: 500 20px/1.2 var(--display);
   text-decoration: none;
 }
 
@@ -492,7 +494,7 @@ footer.site h2 {
   margin: 0 0 8px;
   color: var(--text);
   font-size: 0.875rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 footer.site ul {
@@ -530,11 +532,11 @@ footer.site li a:hover {
 
 @media (prefers-reduced-motion: no-preference) {
   .cta {
-    transition: background-color 120ms ease;
+    transition: background-color 160ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .clip-toggle {
-    transition: opacity 150ms ease;
+    transition: opacity 160ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 }
 
@@ -575,7 +577,7 @@ footer.site li a:hover {
 
 button.cta {
   font: inherit;
-  font-weight: 600;
+  font-weight: 500;
   cursor: pointer;
 }
 
@@ -596,18 +598,20 @@ button.cta {
 .offer-price {
   margin: 8px 0 16px;
   color: var(--text);
-  font: 400 clamp(46px, 7vw, 68px) / 1 var(--display);
+  font: 400 clamp(36px, 5vw, 52px) / 1.2 var(--mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.03em;
 }
 
 .plan-professional {
   border-top: 3px solid var(--accent);
-  background: #191316;
+  background: var(--surface);
 }
 
 .availability {
   color: var(--accent-text);
   font-size: 0.9375rem;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .pricing-details,
@@ -654,12 +658,12 @@ button.cta {
 .product-facts {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin: clamp(32px, 5vw, 60px) 0 0;
+  margin: 64px 0 0;
   border-block: 1px solid var(--border);
 }
 
 .product-facts > div {
-  padding: 20px;
+  padding: 24px;
 }
 
 .product-facts > div + div {
@@ -668,7 +672,7 @@ button.cta {
 
 .product-facts dt {
   color: var(--text);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .product-facts dd {
@@ -694,8 +698,8 @@ button.cta {
 .offer-band {
   display: grid;
   align-items: center;
-  gap: 24px;
-  margin-top: clamp(48px, 8vw, 96px);
+  gap: 32px;
+  margin-top: clamp(64px, 8vw, 96px);
 }
 
 .feature-row h2,
@@ -716,12 +720,13 @@ button.cta {
   justify-items: start;
   padding: clamp(20px, 4vw, 36px);
   border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
+  border-radius: 0;
+  border-inline: 0;
+  background: transparent;
 }
 
 .offer-band {
-  border-left: 3px solid var(--accent);
+  border-top: 2px solid var(--accent);
 }
 
 .demo-teaser p,
@@ -762,7 +767,7 @@ button.cta {
 
 .glossary dt {
   margin-top: 12px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .glossary dd {
@@ -786,4 +791,77 @@ button.cta {
   padding-left: 20px;
   color: var(--text-2);
   font-size: 14px;
+}
+
+/* The working application carries the visual detail; the surrounding page stays quiet. */
+.product-preview {
+  margin: 0;
+  min-width: 0;
+}
+.product-preview > a {
+  display: block;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.product-preview img {
+  width: 100%;
+}
+.product-preview figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.hero .lead {
+  max-width: 44ch;
+}
+.hero .actions {
+  margin-block: 28px 20px;
+}
+.product-facts {
+  font-size: 14px;
+}
+.product-facts dt {
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+.product-facts > div:first-child {
+  padding-left: 0;
+}
+.feature-row .eyebrow {
+  font-family: var(--mono);
+  font-size: 14px;
+}
+.policy {
+  line-height: 1.75;
+}
+.policy h1 {
+  max-width: none;
+}
+@media (max-width: 620px) {
+  .wrap {
+    width: calc(100% - 40px);
+  }
+  nav.main ul {
+    gap: 4px 16px;
+  }
+  .hero {
+    gap: 32px;
+  }
+  .hero h1 {
+    max-width: 16ch;
+  }
+  .product-preview figcaption {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .product-facts {
+    margin-top: 40px;
+  }
+  .product-facts > div {
+    padding-block: 16px;
+  }
 }
