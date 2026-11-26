@@ -200,7 +200,10 @@ nav.main a.nav-download {
 }
 
 .cta:disabled {
-  cursor: wait;
+  cursor: not-allowed;
+  color: var(--muted);
+  background: var(--surface);
+  border-color: var(--border);
 }
 
 main {
@@ -863,5 +866,32 @@ button.cta {
   }
   .product-facts > div {
     padding-block: 16px;
+  }
+}
+
+.purchase-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: fit-content;
+  max-width: 100%;
+}
+.purchase-actions .cta {
+  font-size: 14px;
+  padding-inline: 16px;
+  min-height: 48px;
+  text-align: center;
+}
+.purchase-availability {
+  margin: -8px 0 20px;
+  color: var(--muted);
+  font-size: 14px;
+}
+@media (max-width: 620px) {
+  .purchase-actions {
+    width: 100%;
+    gap: 8px;
+  }
+  .purchase-actions .cta {
+    padding-inline: 8px;
   }
 }
