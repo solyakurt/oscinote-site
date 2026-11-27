@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pricing — Oscinote Professional</title>
-<meta name="description" content="Oscinote Professional costs $19.99 USD as a one-time purchase. Try the Windows and Linux software for 7 days without a credit card.">
+<meta name="description" content="Oscinote Professional costs $19.99 USD as a one-time purchase. Try the Windows software for 7 days without a credit card.">
 
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Oscinote">
 <meta property="og:title" content="Pricing — Oscinote Professional">
-<meta property="og:description" content="Oscinote Professional costs $19.99 USD as a one-time purchase. Try the Windows and Linux software for 7 days without a credit card.">
+<meta property="og:description" content="Oscinote Professional costs $19.99 USD as a one-time purchase. Try the Windows software for 7 days without a credit card.">
 <meta property="og:image" content="https://oscinote.com/videos/overview.jpg">
 <meta property="og:url" content="https://oscinote.com/pricing/">
 <link rel="canonical" href="https://oscinote.com/pricing/">
@@ -24,18 +24,41 @@
 <a class="skip" href="#main">Skip to content</a>
 <header class="site"><div class="wrap"><a class="brand" href="/" aria-label="Oscinote home"><img src="/favicon.svg" alt="" width="32" height="32"><span>Oscinote</span></a><nav class="main" aria-label="Main"><ul><li><a href="/features/">Features</a></li><li><a href="/demo/">Demo</a></li><li><a href="/pricing/" aria-current="page">Pricing</a></li><li><a href="/download/" class="nav-download">Download</a></li></ul></nav></div></header>
 <main id="main" class="wrap">
-<header class="page-intro"><h1>Pricing</h1><p class="lead">One purchase includes all Oscinote Professional features for Windows and Linux.</p><div class="actions purchase-actions"><a class="cta primary" href="/download/">Try free for 7 days</a><button type="button" class="cta" disabled>Buy for $19.99</button></div>
-<p class="purchase-availability">Trial downloads and purchases are not available yet.</p>
-</header>
+<header class="page-intro"><h1>Pricing</h1><p class="lead">One purchase includes all Oscinote Professional features for Windows.</p><div class="actions purchase-actions"><a class="cta primary" href="/download/">Try free for 7 days</a><button type="button" class="cta" id="buy-button">Buy for $19.99</button></div>
+
+<p id="checkout-status" class="muted" role="status"></p><script id="creem-checkout">(() => {
+  const button = document.getElementById('buy-button');
+  const status = document.getElementById('checkout-status');
+  const hex = (bytes) => Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  const start = async () => {
+    button.disabled = true; status.textContent = 'Opening secure checkout…';
+    try {
+      const proof = hex(crypto.getRandomValues(new Uint8Array(32)));
+      const response = await fetch("https://api.oscinote.com" + '/v1/checkout', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ proof }),
+        signal: AbortSignal.timeout(15000),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok || !/^osc_[0-9A-Za-z]{10,40}$/.test(body.requestId) || typeof body.checkoutUrl !== 'string' ||
+          !/^https:\/\/(?:checkout\.creem\.io\/|www\.creem\.io\/checkout\/)[^\s\\]+$/.test(body.checkoutUrl)) throw new Error('checkout unavailable');
+      sessionStorage.setItem('oscinote-claim:' + body.requestId, proof);
+      location.assign(body.checkoutUrl);
+    } catch {
+      button.disabled = false;
+      status.textContent = 'Checkout could not be opened. Check your connection and try again.';
+    }
+  };
+  button.addEventListener('click', () => void start());
+})();</script></header>
 <div class="plans">
 <section class="plan plan-professional" id="buy" aria-labelledby="professional-plan"><h2 id="professional-plan">Oscinote Professional</h2><p class="price">$19.99 USD</p>
 <p>One-time payment. No subscription or automatic renewal. Activate one licence on up to 3 computers. Activation needs internet access, and the licensed app can run offline.</p>
-<p class="availability">Online purchasing is currently closed.</p>
+
 <p class="muted">Creem is our Merchant of Record and handles payment, receipts, applicable taxes and refunds. Checkout shows the total before payment.</p>
 </section>
 <section class="plan" aria-labelledby="trial-plan"><h2 id="trial-plan">Free trial</h2><p class="price">7 days</p>
 <p>Use every feature for 168 hours from the moment you start the trial in the desktop app. The trial starts online. No credit card is required, and nothing is charged at expiry.</p>
-<div class="actions"><a class="cta" href="/download/">View system requirements</a></div></section>
+<div class="actions"><a class="cta" href="/download/">Download free trial</a></div></section>
 </div>
 <section class="pricing-details" aria-labelledby="included-title"><h2 id="included-title">Included in Professional</h2>
 <ul><li>Precision tuner and instrument presets</li><li>Recording and note-by-note pitch analysis</li><li>Smart Practice Coach and interactive exercises</li><li>Pitch-preserving loops and take comparison</li><li>Local projects, WAV exports and updates for your version</li></ul>

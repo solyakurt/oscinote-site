@@ -39,10 +39,33 @@
 <ul class="credits"><li>Claude Debussy (1862–1918), <cite>Syrinx</cite> (opening phrase), played by Sarah Bassingthwaite on flute. <a href="https://commons.wikimedia.org/wiki/File:Debussy_-_Syrinx.ogg">Source</a>, licensed <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>. Excerpt; mixed to mono; 30 ms fade-in, 150 ms fade-out; constant gain to a −1 dBFS peak. The excerpt is shared under the same licence: <a href="/demo/syrinx.wav" download>download it</a>.</li><li>Johann Sebastian Bach (1685–1750), <cite>Partita in A minor for solo flute, BWV 1013: Allemande</cite> (opening bars), played by Scott Goff on modern flute. <a href="https://commons.wikimedia.org/wiki/File:Bach_-_Partita_For_Solo_Flute_-_Modern_Flute_-_1._Allemande.ogg">Source</a>, licensed <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>. Excerpt; mixed to mono; 30 ms fade-in, 150 ms fade-out; constant gain to a −1 dBFS peak. The excerpt is shared under the same licence: <a href="/demo/allemande-goff.wav" download>download it</a>.</li><li>Johann Sebastian Bach (1685–1750), <cite>Partita in A minor for solo flute, BWV 1013: Allemande</cite> (the same opening bars), played by Alex Murray on traverso (flute by Goulding, late 1700s). <a href="https://commons.wikimedia.org/wiki/File:Bach_-_Partita_For_Solo_Flute_-_Traverso_-_1._Allemande.ogg">Source</a>, licensed <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>. Excerpt; mixed to mono; 30 ms fade-in, 150 ms fade-out; constant gain to a −1 dBFS peak. The excerpt is shared under the same licence: <a href="/demo/allemande-murray.wav" download>download it</a>.</li></ul>
 <section class="cta-band">
 <h2>Discover the full power of Oscinote</h2>
-<p class="lead">The demo works with these sample recordings. In the Windows and Linux app you can record your own playing, practice a difficult passage and compare your takes.</p>
-<div class="actions purchase-actions"><a class="cta primary" href="/download/">Try free for 7 days</a><a class="cta" href="/pricing/#buy">Buy for $19.99</a></div>
-<p class="purchase-availability">Trial downloads and purchases are not available yet.</p>
+<p class="lead">The demo works with these sample recordings. In the Windows app you can record your own playing, practice a difficult passage and compare your takes.</p>
+<div class="actions purchase-actions"><a class="cta primary" href="/download/">Try free for 7 days</a><button type="button" class="cta" id="buy-button">Buy for $19.99</button></div>
 
+<p id="checkout-status" class="muted" role="status"></p><script id="creem-checkout">(() => {
+  const button = document.getElementById('buy-button');
+  const status = document.getElementById('checkout-status');
+  const hex = (bytes) => Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  const start = async () => {
+    button.disabled = true; status.textContent = 'Opening secure checkout…';
+    try {
+      const proof = hex(crypto.getRandomValues(new Uint8Array(32)));
+      const response = await fetch("https://api.oscinote.com" + '/v1/checkout', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ proof }),
+        signal: AbortSignal.timeout(15000),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok || !/^osc_[0-9A-Za-z]{10,40}$/.test(body.requestId) || typeof body.checkoutUrl !== 'string' ||
+          !/^https:\/\/(?:checkout\.creem\.io\/|www\.creem\.io\/checkout\/)[^\s\\]+$/.test(body.checkoutUrl)) throw new Error('checkout unavailable');
+      sessionStorage.setItem('oscinote-claim:' + body.requestId, proof);
+      location.assign(body.checkoutUrl);
+    } catch {
+      button.disabled = false;
+      status.textContent = 'Checkout could not be opened. Check your connection and try again.';
+    }
+  };
+  button.addEventListener('click', () => void start());
+})();</script>
 </section>
 <link rel="stylesheet" href="/demo/assets/demo.css">
 <script type="module" src="/demo/assets/demo.js"></script>

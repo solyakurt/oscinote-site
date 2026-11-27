@@ -1,0 +1,13 @@
+{
+  "version": "0.1.1",
+  "platforms": {
+    "windows-x86_64-nsis": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUTnFDa2hPSUovalNMaDRIN3Y0ZXFQL1EzcXVFRXBXRCt4RHJmTHloWm9FUmFuVVYxTFRpblNRMkk5U0JzMmVuYXcxbGJ2VzB1SVBtL2xlcWpQKzJibVQvbzMxWGt5ckFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NzYyNjE4CWZpbGU6T3NjaW5vdGVfMC4xLjFfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuMS4xCnhpVmdjMjdBbHN6TFBMUjI3SUF6KzZHWVV4TlZ1Umd2azNHamxaRnVkUXZYbU12Z1BmVmZZNWFGTFBvbDVpNWxZVGpma1Ftd2VYbWNaZlR1T1dmQUJ3PT0K",
+      "url": "https://oscinote.com/downloads/Oscinote_0.1.1_x64-setup.exe"
+    },
+    "windows-x86_64": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUTnFDa2hPSUovalNMaDRIN3Y0ZXFQL1EzcXVFRXBXRCt4RHJmTHloWm9FUmFuVVYxTFRpblNRMkk5U0JzMmVuYXcxbGJ2VzB1SVBtL2xlcWpQKzJibVQvbzMxWGt5ckFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NzYyNjE4CWZpbGU6T3NjaW5vdGVfMC4xLjFfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuMS4xCnhpVmdjMjdBbHN6TFBMUjI3SUF6KzZHWVV4TlZ1Umd2azNHamxaRnVkUXZYbU12Z1BmVmZZNWFGTFBvbDVpNWxZVGpma1Ftd2VYbWNaZlR1T1dmQUJ3PT0K",
+      "url": "https://oscinote.com/downloads/Oscinote_0.1.1_x64-setup.exe"
+    }
+  }
+}

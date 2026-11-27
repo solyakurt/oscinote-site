@@ -25,7 +25,7 @@
 <header class="site"><div class="wrap"><a class="brand" href="/" aria-label="Oscinote home"><img src="/favicon.svg" alt="" width="32" height="32"><span>Oscinote</span></a><nav class="main" aria-label="Main"><ul><li><a href="/features/" aria-current="page">Features</a></li><li><a href="/demo/">Demo</a></li><li><a href="/pricing/">Pricing</a></li><li><a href="/download/" class="nav-download">Download</a></li></ul></nav></div></header>
 <main id="main" class="wrap">
 <header class="page-intro"><p class="eyebrow">Oscinote Professional</p><h1>Tools for focused practice</h1>
-<p class="lead">Oscinote is installable desktop software for Windows and Linux. Tune, record and analyze a single melody, then work on a phrase with loops, reference audio and measured feedback.</p></header>
+<p class="lead">Oscinote is installable desktop software for Windows. Tune, record and analyze a single melody, then work on a phrase with loops, reference audio and measured feedback.</p></header>
 <nav class="section-links" aria-label="Features on this page"><a href="#tuner">Tuner</a><a href="#recording">Recording</a><a href="#analysis">Analysis &amp; Coach</a><a href="#practice">Practice</a><a href="#compare">Compare</a><a href="#projects">Projects</a></nav>
 <h2 id="tuner">Precision tuner</h2><p>Choose from 31 instrument profiles across 8 families, including guitar, bowed strings, winds and brass. Tune in automatic, manual or chromatic mode. String profiles offer tuning presets and custom tunings. You can hear reference tones, select a reference A4, and display written pitches for transposing instruments.</p><p>See the <a href="/instruments/">instrument list</a> and <a href="/support/#accuracy">bench measurements</a> for ranges and measurement limits.</p><figure class="clip"><div class="clip-frame"><video class="clip-video" muted loop playsinline controls preload="none" poster="/videos/tuner.jpg" width="1440" height="900" aria-label="Tuner reading A2 eight cents flat on guitar, then the cello scroll, the trombone tuning slide and a piano keyboard"><source src="/videos/tuner.webm" type="video/webm"><source src="/videos/tuner.mp4" type="video/mp4"></video></div><figcaption>Guitar, cello, trombone and piano, each drawn as the instrument it is.</figcaption></figure>
 <h2 id="recording">Record and export takes</h2><p>Record a mono track with input levels and clipping indicators. Each take keeps the instrument and tuning used to record it. Import WAV recordings, export 24-bit WAV files and save project backups locally.</p>
@@ -34,9 +34,32 @@
 <h2 id="compare">Compare two takes</h2><p>Record a retake directly from Practice. Compare the same passage on overlaid pitch graphs and move between the original and retake on the aligned timeline. Oscinote reports intonation changes beyond the measurement margin and compares rhythm when both takes can be matched reliably to a shared score.</p><figure class="clip"><div class="clip-frame"><video class="clip-video" muted loop playsinline controls preload="none" poster="/videos/compare.jpg" width="1440" height="900" aria-label="Compare screen: two takes of the same note aligned, summary showing no measurable difference"><source src="/videos/compare.webm" type="video/webm"><source src="/videos/compare.mp4" type="video/mp4"></video></div><figcaption>Two takes of the same test tone compared: “no measurable difference”.</figcaption></figure>
 <h2 id="projects">Projects, practice history and updates</h2><p>Saved takes, settings and practice history stay on your computer. Export a project backup, a take as WAV or practice history as CSV. Settings also includes optional checks for app updates.</p>
 <h2 id="languages">Languages</h2><p>English, Ukrainian, Spanish, French, German, Portuguese (Brazil), Italian, Polish and Japanese. Switch in Settings at any time.</p>
-<div class="actions purchase-actions"><a class="cta primary" href="/download/">Try free for 7 days</a><a class="cta" href="/pricing/#buy">Buy for $19.99</a></div>
-<p class="purchase-availability">Trial downloads and purchases are not available yet.</p>
+<div class="actions purchase-actions"><a class="cta primary" href="/download/">Try free for 7 days</a><button type="button" class="cta" id="buy-button">Buy for $19.99</button></div>
 
+<p id="checkout-status" class="muted" role="status"></p><script id="creem-checkout">(() => {
+  const button = document.getElementById('buy-button');
+  const status = document.getElementById('checkout-status');
+  const hex = (bytes) => Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
+  const start = async () => {
+    button.disabled = true; status.textContent = 'Opening secure checkout…';
+    try {
+      const proof = hex(crypto.getRandomValues(new Uint8Array(32)));
+      const response = await fetch("https://api.oscinote.com" + '/v1/checkout', {
+        method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ proof }),
+        signal: AbortSignal.timeout(15000),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok || !/^osc_[0-9A-Za-z]{10,40}$/.test(body.requestId) || typeof body.checkoutUrl !== 'string' ||
+          !/^https:\/\/(?:checkout\.creem\.io\/|www\.creem\.io\/checkout\/)[^\s\\]+$/.test(body.checkoutUrl)) throw new Error('checkout unavailable');
+      sessionStorage.setItem('oscinote-claim:' + body.requestId, proof);
+      location.assign(body.checkoutUrl);
+    } catch {
+      button.disabled = false;
+      status.textContent = 'Checkout could not be opened. Check your connection and try again.';
+    }
+  };
+  button.addEventListener('click', () => void start());
+})();</script>
 </main>
 <footer class="site"><div class="wrap footer-layout">
 <div class="footer-brand"><a href="/">Oscinote</a><p>Music practice software for Windows and Linux.</p></div>
