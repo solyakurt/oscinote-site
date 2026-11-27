@@ -8,6 +8,10 @@
     "windows-x86_64": {
       "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUTnFDa2hPSUovalNMaDRIN3Y0ZXFQL1EzcXVFRXBXRCt4RHJmTHloWm9FUmFuVVYxTFRpblNRMkk5U0JzMmVuYXcxbGJ2VzB1SVBtL2xlcWpQKzJibVQvbzMxWGt5ckFjPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NzYyNjE4CWZpbGU6T3NjaW5vdGVfMC4xLjFfeDY0LXNldHVwLmV4ZQl2ZXJzaW9uOjAuMS4xCnhpVmdjMjdBbHN6TFBMUjI3SUF6KzZHWVV4TlZ1Umd2azNHamxaRnVkUXZYbU12Z1BmVmZZNWFGTFBvbDVpNWxZVGpma1Ftd2VYbWNaZlR1T1dmQUJ3PT0K",
       "url": "https://oscinote.com/downloads/Oscinote_0.1.1_x64-setup.exe"
+    },
+    "linux-x86_64-deb": {
+      "signature": "dW50cnVzdGVkIGNvbW1lbnQ6IHNpZ25hdHVyZSBmcm9tIHRhdXJpIHNlY3JldCBrZXkKUlVUTnFDa2hPSUovamJMcWtMU2t5Y0E0Y1Rxa25HdDVrRi9rQjkyeXU4VW9rWDlPczNxcCs1Rkp4Y3gvTzlzVzlUV284MzRhdklheHBVVkI4VzZIOERsM3ArOXJ0Q3ZPRUFRPQp0cnVzdGVkIGNvbW1lbnQ6IHRpbWVzdGFtcDoxNzk1NzYzMjE3CWZpbGU6T3NjaW5vdGVfMC4xLjFfYW1kNjQuZGViCXZlcnNpb246MC4xLjEKQ2Ftdy9oYncweklWNmhNOFFxdjc0WGtIZEV5dnV6QVpzSmovN0xaTWZvTS9MYjZDUHpSQjVvTjhwSC84YWE0QUlvMFNGbDZ0WjJZTW80U0RLZlpxQVE9PQo=",
+      "url": "https://oscinote.com/downloads/Oscinote_0.1.1_amd64.deb"
     }
   }
 }
